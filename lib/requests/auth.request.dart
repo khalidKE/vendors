@@ -8,21 +8,31 @@ import 'package:fuodz/services/http.service.dart';
 
 class AuthRequest extends HttpService {
   //
-  Future<ApiResponse> loginRequest({
-    required String email,
-    required String password,
-  }) async {
-    final apiResult = await post(
-      Api.login,
-      {
-        "email": email,
-        "password": password,
-        "role": "manager",
-      },
-    );
+Future<ApiResponse> loginRequest({
+  required String email,
+  required String password,
+}) async {
+  print("🌐 ========== API REQUEST ==========");
+  print("📍 Endpoint: ${Api.baseUrl}${Api.login}");
+  print("📧 Email: $email");
+  print("🔐 Password: $password"); // احذف هذا بعد الاختبار!
+  print("👔 Role: manager");
+  
+  final apiResult = await post(
+    Api.login,
+    {
+      "email": email,
+      "password": password,
+      "role": "manager",
+    },
+  );
+  
+  print("📥 Raw Response Status: ${apiResult.statusCode}");
+  print("📦 Raw Response Data: ${apiResult.data}");
+  print("===================================");
 
-    return ApiResponse.fromResponse(apiResult);
-  }
+  return ApiResponse.fromResponse(apiResult);
+}
 
   Future<ApiResponse> registerRequest({
     required Map<String, dynamic> vals,
